@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+
+测试符号：<@ "232"+20 @>
+姓名：<@ {me.name} @>
+性别:<@ {me.gender} @>
+年龄:<@ ({me.age}) @>
+年龄:<@ ({me}==null?100:{me.age})>=40?'保密':(18>= {me.age} ? "未成年":"成年") @>
+
+如果列表数大于2有值：
+<@if:"{team.size}>2" @><@if:"{me}!=null"@><@{me.name}@><@endIf@>
+<@each:{team} item:item@>测试EACH:(姓名：<@ {item.name} @>)<@if:{item.age}>35@><@{item.age}@><@endIf@>
+<@endEach@>
+<@endIf@>
+
+
+
+</body>
+</html>
