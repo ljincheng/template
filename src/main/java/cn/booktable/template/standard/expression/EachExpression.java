@@ -35,8 +35,8 @@ public class EachExpression implements IStandardExpression {
         StringBuffer contentOut=new StringBuffer();
         readKeyValue(template,config.getPrefix(),config.getSuffix(),tagOut,contentOut);
 
-        System.out.println("EACH TAG:"+tagOut.toString());
-        System.out.println("EACH CONTNET:"+contentOut.toString());
+        //System.out.println("EACH TAG:"+tagOut.toString());
+        //System.out.println("EACH CONTNET:"+contentOut.toString());
 
         KeyValueReader keyValueReader=new KeyValueReader(tagOut.toString());
         Map<String, String> expMap=keyValueReader.toMap();
@@ -46,10 +46,26 @@ public class EachExpression implements IStandardExpression {
         if(iterableValue!=null && iterableValue instanceof List) {
             List items=(List) iterableValue;
             String itemValue=expMap.get("item");
+            String separator=expMap.get("separator");
+            boolean appendSeparator=false;
+            boolean hasSeparator=false;
+            if(separator!=null && separator.length()>0)
+            {
+                hasSeparator=true;
+            }
             for(int i=0,k=items.size();i<k;i++) {
                 context.setVariable(itemValue,items.get(i));
-                Boolean resultIf = true;// TODO  tag value
-                if (resultIf != null && resultIf.booleanValue() && contentOut.length() > 0) {
+                if(hasSeparator)
+                {
+                    if(appendSeparator==false)
+                    {
+                        appendSeparator=true;
+                    }else {
+                        out.append(separator);
+                    }
+
+                }
+                if (contentOut.length() > 0) {
                     BlockReader reader = new BlockReader(config, context);
                     reader.read(contentOut.toString(), out);
                 }

@@ -38,8 +38,8 @@ public class BooleanExpression implements IStandardExpression {
         StringBuffer contentOut=new StringBuffer();
         readKeyValue(template,config.getPrefix(),config.getSuffix(),tagOut,contentOut);
 
-        System.out.println("IF TAG:"+tagOut.toString());
-        System.out.println("IF CONTNET:"+contentOut.toString());
+        //System.out.println("IF TAG:"+tagOut.toString());
+        //System.out.println("IF CONTNET:"+contentOut.toString());
         Boolean resultIf=false;// TODO  tag value
         if(tagOut.length()>0)
         {
@@ -49,16 +49,16 @@ public class BooleanExpression implements IStandardExpression {
                 if(!TextUtils.isBlank(ifExp))
                 {
 
-                    System.out.println("IF EXP:"+ifExp);
+                    //System.out.println("IF EXP:"+ifExp);
                     Object value= Expression.getValue(ifExp, context);
                     if(value!=null && value instanceof Boolean)
                     {
                         resultIf=(Boolean)value;
-                        System.out.println("IF EXP:"+ifExp+",value="+value);
+                        //System.out.println("IF EXP:"+ifExp+",value="+value);
 
                     }
                 }
-                System.out.println("IF EXP:"+ifExp);
+                //System.out.println("IF EXP:"+ifExp);
 
         }
         if(resultIf!=null && resultIf.booleanValue() && contentOut.length()>0) {

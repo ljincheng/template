@@ -61,18 +61,18 @@ public class BlockReader {
                         IStandardExpression expression= mConfig.getExpressionHandle().get(HANDLE_IF);
                         expression.execute(mConfig,out,new TemplateSpec(context),mContext);
 
-                        System.out.println("找到模板参数：" + context);
+                        //System.out.println("找到模板参数：" + context);
                     }else if(matchPrefix(context,mPrefix_each,0))
                     {
                         endIndex=read(template,mPrefix_each,mSuffix_each,cursor+mPrefix_each.length,size);
                         context = template.substring(cursor, endIndex);
                         IStandardExpression expression=  mConfig.getExpressionHandle().get(HANDLE_EACH);
                         expression.execute(mConfig,out,new TemplateSpec(context),mContext);
-                        System.out.println("找到模板参数：" + context);
+                        //System.out.println("找到模板参数：" + context);
                     }else{
                         IStandardExpression expression=  mConfig.getExpressionHandle().get(HANDLE_DEFAULT);
                         expression.execute(mConfig,out,new TemplateSpec(context),mContext);
-                        System.out.println("找到模板参数：" + context);
+                        //System.out.println("找到模板参数：" + context);
                     }
                     cursor = endIndex;
                 }else {

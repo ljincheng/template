@@ -166,25 +166,25 @@ public class ExpresssionReader {
 				  if(c == '\'' || c == '\"')
 				  {
 					  String word=read.next();
-					  System.out.println("TEXT ="+word);
+					  //System.out.println("TEXT ="+word);
 				  }else if(c == '(')
 				  {
 					  String word=read.next();
-					  System.out.println("EXP ="+word);
+					  //System.out.println("EXP ="+word);
 				  }else if(c == '[')
 				  {
 					  String word=read.next();
-					  System.out.println("ARRAY ="+word);
+					  //System.out.println("ARRAY ="+word);
 				  }else if(c == '{')
 				  {
 					  String word=read.next();
-					  System.out.println("VAR ="+word);
+					  //System.out.println("VAR ="+word);
 				  }else if(c == '=') {
 					  read.getNext();
 					  char nextc=read.getNext();
 					  if(nextc == '=')
 					  {
-						  System.out.println("EQUALS =");
+						  //System.out.println("EQUALS =");
 					  }else {
 						  throw new ExpressionException("表达式错误,注意 = 符号后面的字符");
 					  }
@@ -193,7 +193,7 @@ public class ExpresssionReader {
 					  char nextc=read.getNext();
 					  if( nextc == '=')
 					  {
-						  System.out.println("EXP !=");
+						  //System.out.println("EXP !=");
 					  }else {
 						  throw new ExpressionException("表达式错误，注意 ! 符号后面的字符");
 					  }
@@ -203,12 +203,12 @@ public class ExpresssionReader {
 					  if(nextc == '=' )
 					  {
 						  nextc=read.getNext();
-						  System.out.println("EXP <= ");
+						  //System.out.println("EXP <= ");
 					  }else if(nextc == '>' ) {
 						  nextc=read.getNext();
-						  System.out.println("EXP <> ");
+						  //System.out.println("EXP <> ");
 					  }else if(Character.isDigit(nextc) || nextc == '\'' || nextc == '\"'  || nextc == '(' ||nextc == '[' || nextc == '{' || read.isSpace()) {
-						  System.out.println("EXP < ");
+						  //System.out.println("EXP < ");
 					  }else {
 						  throw new ExpressionException("表达式错误,注意 < 符号后面的字符");
 					  }
@@ -218,15 +218,15 @@ public class ExpresssionReader {
 					  if(nextc == '=' )
 					  {
 						  nextc=read.getNext();
-						  System.out.println("EXP <= "); 
+						  //System.out.println("EXP <= ");
 					  }else if(Character.isDigit(nextc) || nextc == '\'' || nextc == '\"'  || nextc == '(' ||nextc == '[' || nextc == '{' || read.isSpace()) {
-						  System.out.println("EXP > ");
+						  //System.out.println("EXP > ");
 					  }else {
 						  throw new ExpressionException("表达式错误,注意 > 符号后面的字符");
 					  }
 				  }else {
 					  String word=read.next();
-					  System.out.println("else ="+word);
+					  //System.out.println("else ="+word);
 				  }
 				 
 			  }
@@ -247,7 +247,7 @@ public class ExpresssionReader {
 			  context.setVariable("table", testMap);
 			  context.setVariable("pid", 300L);
 			  Object value=expression.execute(template, context);
-			  System.out.println("Last Value="+value);
+			  //System.out.println("Last Value="+value);
 			  
 		  }catch (Exception e) {
 			e.printStackTrace();

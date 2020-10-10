@@ -41,7 +41,7 @@ public class BlockReaderTest {
             BlockReader reader=new BlockReader(config,context);
             StringBuffer html=new StringBuffer();
             reader.read(template,html);
-            System.out.println("HTML:"+html);
+            //System.out.println("HTML:"+html);
         }catch (Exception ex)
         {
             ex.printStackTrace();

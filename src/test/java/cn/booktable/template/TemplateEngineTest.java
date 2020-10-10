@@ -16,7 +16,7 @@ public class TemplateEngineTest {
 
             String template = ContextTest.loadResource("example1");
             String result = TemplateEngine.process(template, contextTest.personContext());
-            System.out.println("RESULT:" + result);
+            //System.out.println("RESULT:" + result);
         }catch (Exception ex)
         {
             ex.printStackTrace();

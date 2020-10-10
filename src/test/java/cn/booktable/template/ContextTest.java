@@ -56,7 +56,7 @@ public class ContextTest {
     public static String loadResource(String templateName) {
         String resourceName = TEMPLATE_DIR + templateName + ".txt";
 
-        System.out.println("###resourceName="+resourceName);
+        //System.out.println("###resourceName="+resourceName);
 
         InputStream in = ContextTest.class.getResourceAsStream(resourceName);
 
@@ -88,7 +88,7 @@ public class ContextTest {
     {
 
         String context=loadResource("example1");
-        System.out.println("CONTENT:"+context);
+        //System.out.println("CONTENT:"+context);
     }
 
     public static IContext personContext()

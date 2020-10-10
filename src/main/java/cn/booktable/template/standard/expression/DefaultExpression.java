@@ -26,7 +26,7 @@ public class DefaultExpression implements IStandardExpression {
 
     @Override
     public Object execute(TemplateConfig config, StringBuffer out, TemplateSpec templateSpec, IEngineContext context) {
-        System.out.println("DEFAULT EXPRESSION:"+templateSpec.getTemplate());
+        //System.out.println("DEFAULT EXPRESSION:"+templateSpec.getTemplate());
         String template=templateSpec.getTemplate();
         if(!TextUtils.isBlank(template)){
             String content=template.substring(config.getPrefix().length(),template.length()-config.getSuffix().length());

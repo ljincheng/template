@@ -49,7 +49,7 @@ public class Expression implements IExpression{
 			  if(c == '\'' || c == '\"')
 			  {
 				  String word=read.next();
-				  System.out.println("TEXT ="+word);
+				  //System.out.println("TEXT ="+word);
 				  IExpression nextExpression=new TextExpression();
 				  value= nextExpression.execute(word, context);
 				  expressionList.add(value);
@@ -57,21 +57,21 @@ public class Expression implements IExpression{
 			  }else if(c == '(')
 			  {
 				  String word=read.next();
-				  System.out.println("EXP ="+word);
+				  //System.out.println("EXP ="+word);
 				  IExpression nextExpression=new Expression();
 				   value=nextExpression.execute(word, context);
 				  expressionList.add(value);
 			  }else if(c == '[')
 			  {
 				  String word=read.next();
-				  System.out.println("ARRAY ="+word);
+				  //System.out.println("ARRAY ="+word);
 				  IExpression nextExpression=new ArrayExpression();
 				  value=nextExpression.execute(word, context);
 				  expressionList.add(value);
 			  }else if(c == '{')
 			  {
 				  String word=read.next();
-				  System.out.println("VAR ="+word);
+				  //System.out.println("VAR ="+word);
 				  IExpression nextExpression=new VariableExpression();
 				  value=nextExpression.execute(word, context);
 				  expressionList.add(value);
@@ -81,7 +81,7 @@ public class Expression implements IExpression{
 				  if(nextc == '=')
 				  {
 					  c=read.getNext();
-					  System.out.println("EQUALS =");
+					  //System.out.println("EQUALS =");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression equalExpression=new EqualsExpression();
@@ -95,7 +95,7 @@ public class Expression implements IExpression{
 				  if( nextc == '=')
 				  {
 					  c=read.getNext();
-					  System.out.println("EXP !=");
+					  //System.out.println("EXP !=");
 					  Expression nextExpression=new Expression();
 					  String word=read.next();
 					  Object nextValue= nextExpression.execute(word, context);
@@ -110,20 +110,20 @@ public class Expression implements IExpression{
 				  if(nextc == '=' )
 				  {
 					  nextc=read.getNext();
-					  System.out.println("EXP <= ");
+					  //System.out.println("EXP <= ");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression bOExp=new LessOrEqualToExpression();
 					  value= bOExp.comparison(value, nextValue);
 				  }else if(nextc == '>' ) {
 					  nextc=read.getNext();
-					  System.out.println("EXP <> ");
+					  //System.out.println("EXP <> ");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression equalExpression=new NotEqualsExpression();
 					  value= equalExpression.comparison(value, nextValue);
 				  }else if(Character.isDigit(nextc) || nextc == '\'' || nextc == '\"'  || nextc == '(' ||nextc == '[' || nextc == '{' || read.isSpace()) {
-					  System.out.println("EXP < ");
+					  //System.out.println("EXP < ");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression equalExpression=new LessExpression();
@@ -137,13 +137,13 @@ public class Expression implements IExpression{
 				  if(nextc == '=' )
 				  {
 					  nextc=read.getNext();
-					  System.out.println("EXP <= "); 
+					  //System.out.println("EXP <= ");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression equalExpression=new GreaterOrEqualToExpression();
 					  value= equalExpression.comparison(value, nextValue);
 				  }else if(Character.isDigit(nextc) || nextc == '\'' || nextc == '\"'  || nextc == '(' ||nextc == '[' || nextc == '{' || read.isSpace()) {
-					  System.out.println("EXP > ");
+					  //System.out.println("EXP > ");
 					  Expression nextExpression=new Expression();
 					  Object nextValue= nextExpression.execute(read.next(), context);
 					  BinaryOperationExpression equalExpression=new GreaterExpression();
@@ -182,7 +182,7 @@ public class Expression implements IExpression{
 					  read.skipNext();
 					  read.skipEmpty();
 					  char chooseChar=read.getNext();
-					  System.out.println("chooseChar="+chooseChar); 
+					  //System.out.println("chooseChar="+chooseChar);
 					  if(chooseChar!=':') throw new ExpressionException("表达式错误");
 
 					 c= read.atNext();
@@ -274,7 +274,7 @@ public class Expression implements IExpression{
 //				  }else {
 //					  value=word;
 //				  }
-				  System.out.println("ELSE ="+word);
+				  //System.out.println("ELSE ="+word);
 			  }
 		  }
 		return value;
