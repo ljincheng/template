@@ -1,6 +1,7 @@
 package cn.booktable.template.expression;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -239,7 +240,7 @@ public class Expression implements IExpression{
 				  } else {
 					  throw new ExpressionException("表达式错误");
 				  }
-			  }else if('+' ==c ){
+			  }else if('+'==c || '-' ==c || '*' ==c || '/' ==c || '%'==c){//加减乘除余数等运算
 				  c = read.getNext();
 				  Object part1Value=value;
 				  Expression nextExpression = new Expression();
@@ -252,9 +253,25 @@ public class Expression implements IExpression{
 					  }
 				  }else if(TextUtils.isNumber(part1Value.toString()) && TextUtils.isNumber(value.toString()))
 				  {
-				  	value= new BigDecimal(part1Value.toString()).add(new BigDecimal(value.toString()));
+				  	if('-'==c) {
+						value = new BigDecimal(part1Value.toString()).subtract(new BigDecimal(value.toString()));
+					}else if('/'==c)
+					{
+						value=new BigDecimal(part1Value.toString()).divide(new BigDecimal(value.toString()),2,RoundingMode.HALF_UP);
+					}else if('*'==c)
+					{
+						value=new BigDecimal(part1Value.toString()).multiply(new BigDecimal(value.toString()));
+					}else if('%'==c) {// 5 % 3
+						value= new BigDecimal(part1Value.toString()).remainder(new BigDecimal(value.toString())).setScale(0, RoundingMode.DOWN);
+				 	 }else {
+					  value= new BigDecimal(part1Value.toString()).add(new BigDecimal(value.toString()));
+				 	 }
 				  }else {
-				  	value = part1Value.toString().concat(value.toString());
+				  	if('+'==c){
+						value = part1Value.toString().concat(value.toString());
+					}else {
+						throw new ExpressionException("表达式错误");
+					}
 				  }
 
 			  }else {

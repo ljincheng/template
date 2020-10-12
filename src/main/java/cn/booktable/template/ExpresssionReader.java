@@ -60,13 +60,13 @@ public class ExpresssionReader {
 			nextMatcher(firstChar,result);
 		}else if(firstChar == '('){	// (23232323)
 			result.append(firstChar);
-			nextMatcher(')',result);
+			nextTwinMatcher(firstChar,')',result);
 		}else if(firstChar == '{') {  // {123abc}
 			result.append(firstChar);
-			nextMatcher('}',result);
+			nextTwinMatcher(firstChar,'}',result);
 		}else if(firstChar == '[') {	//	[123,10,24]  ['1212','1212','1121212']
 			result.append(firstChar);
-			nextMatcher(']',result);
+			nextTwinMatcher(firstChar,']',result);
 		}else if(firstChar==':' || firstChar== '?' || firstChar =='>' || firstChar=='=' || firstChar=='<' || firstChar=='>' || firstChar=='!' ) {
 			result.append(firstChar);
 			cursor++;
@@ -106,6 +106,43 @@ public class ExpresssionReader {
 	            }
 	        }
 	}
+
+	private void nextTwinMatcher(char startTag,char endTag,StringBuilder result)
+	{
+		if (cursor ==  size)
+			return;
+
+		int insideNum=0;
+		while (cursor < size) {
+			char nextChar = this.template.charAt(cursor);
+			if (nextChar == '\\') {
+				cursor++;
+				if (cursor ==  size)
+					throw new ExpressionException(
+							"表达式错误，注意\\\\后面丢失特殊字符");
+				nextChar = this.template.charAt(cursor);
+				result.append(nextChar);
+				cursor++;
+			}else if(nextChar==startTag){
+				insideNum++;
+				result.append(nextChar);
+				cursor++;
+			}else if(nextChar == endTag){
+
+				result.append(nextChar);
+				cursor++;
+				if(insideNum>0)
+				{
+					insideNum--;
+				}else {
+					break;
+				}
+			}else {
+				result.append(nextChar);
+				cursor++;
+			}
+		}
+	}
 	
 	private void nextTextMatcher(StringBuilder result)
 	{ 
@@ -121,7 +158,7 @@ public class ExpresssionReader {
 	                nextChar = this.template.charAt(cursor);
 	                result.append(nextChar);
 	                cursor++;
-	            }else if( !Character.isLetterOrDigit(nextChar)){
+	            }else if( !Character.isLetterOrDigit(nextChar) && nextChar!='.' ){
 	            	break;
 	            }else {
 	            	result.append(nextChar);
