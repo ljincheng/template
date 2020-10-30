@@ -37,7 +37,17 @@ public class BooleanExpression implements IStandardExpression {
         StringBuffer tagOut=new StringBuffer();
         StringBuffer contentOut=new StringBuffer();
         readKeyValue(template,config.getPrefix(),config.getSuffix(),tagOut,contentOut);
-
+//以下过滤掉起始和尾部的换行符
+        while (contentOut.length()>0 && (contentOut.charAt(0)=='\r'|| contentOut.charAt(0)=='\n') )
+        {
+            contentOut.deleteCharAt(0);
+        }
+        char lastChar=contentOut.length()>0 ? contentOut.charAt(contentOut.length()-1):'a';
+        while (contentOut.length()>0 && (lastChar=='\r' || lastChar=='\n'))
+        {
+            contentOut.deleteCharAt(contentOut.length()-1);
+            lastChar=contentOut.length()>0 ? contentOut.charAt(contentOut.length()-1):'a';
+        }
         //System.out.println("IF TAG:"+tagOut.toString());
         //System.out.println("IF CONTNET:"+contentOut.toString());
         Boolean resultIf=false;// TODO  tag value

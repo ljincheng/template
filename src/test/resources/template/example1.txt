@@ -15,7 +15,10 @@
 
 如果列表数大于2有值：
 <@if:"{team.size}>2" @><@if:"{me}!=null"@><@{me.name}@><@endIf@>
-<@each:{team} item:item@>测试EACH:(姓名：<@ {item.name} @>)<@if:{item.age}>35@><@{item.age}@><@endIf@>
+<@each:{team} item:item filter:"{item.name} != 'Ann:1' " separator:";"@>
+测试EACH:(姓名：<@ {item.name} @>)<@if:{item.age}>35@>
+<@{item.age}@>
+<@endIf@>
 <@endEach@>
 <@endIf@>
 

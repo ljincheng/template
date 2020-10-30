@@ -1,6 +1,7 @@
 package cn.booktable.template.standard.expression;
 
 import cn.booktable.template.*;
+import cn.booktable.template.expression.Expression;
 import cn.booktable.template.expression.VariableExpression;
 import cn.booktable.template.reader.BlockReader;
 import cn.booktable.template.reader.KeyValueReader;
@@ -34,7 +35,17 @@ public class EachExpression implements IStandardExpression {
         StringBuffer tagOut=new StringBuffer();
         StringBuffer contentOut=new StringBuffer();
         readKeyValue(template,config.getPrefix(),config.getSuffix(),tagOut,contentOut);
-
+//以下过滤掉起始和尾部的换行符
+while (contentOut.length()>0 && (contentOut.charAt(0)=='\r'|| contentOut.charAt(0)=='\n') )
+{
+    contentOut.deleteCharAt(0);
+}
+char lastChar=contentOut.length()>0 ? contentOut.charAt(contentOut.length()-1):'a';
+while (contentOut.length()>0 && (lastChar=='\r' || lastChar=='\n'))
+{
+    contentOut.deleteCharAt(contentOut.length()-1);
+    lastChar=contentOut.length()>0 ? contentOut.charAt(contentOut.length()-1):'a';
+}
         //System.out.println("EACH TAG:"+tagOut.toString());
         //System.out.println("EACH CONTNET:"+contentOut.toString());
 
@@ -47,6 +58,8 @@ public class EachExpression implements IStandardExpression {
             List items=(List) iterableValue;
             String itemValue=expMap.get("item");
             String separator=expMap.get("separator");
+            String filter=expMap.get("filter");
+            //System.out.println("filter="+filter);
             boolean appendSeparator=false;
             boolean hasSeparator=false;
             if(separator!=null && separator.length()>0)
@@ -66,8 +79,24 @@ public class EachExpression implements IStandardExpression {
 
                 }
                 if (contentOut.length() > 0) {
-                    BlockReader reader = new BlockReader(config, context);
-                    reader.read(contentOut.toString(), out);
+                    if (filter != null && filter.length() > 0) {//有过滤条件情况下
+                        Object value= Expression.getValue(filter, context);
+                        if (value!=null && value instanceof Boolean ) {
+                            if((Boolean)value) {
+                                BlockReader reader = new BlockReader(config, context);
+                                reader.read(contentOut.toString(), out);
+                            }else{
+                                appendSeparator=false;
+                            }
+                        }else{
+                            appendSeparator=false;
+                        }
+                    }else{//没有过滤条件下
+                        BlockReader reader = new BlockReader(config, context);
+                        reader.read(contentOut.toString(), out);
+                    }
+
+
                 }
             }
             context.setVariable(itemValue,null);
